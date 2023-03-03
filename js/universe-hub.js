@@ -32,14 +32,14 @@ const displayUniverseData=(data)=>{
               ${featureUniverse(element.features ? element.features : "No data found!!")}
               </ol>
           </div>
-          <hr>
+          <hr class="w-75 mx-auto">
           <div class="d-flex mx-3 justify-content-between">
               <div>
                   <h4>${element.name ? element.name : "no data found!!" }  </h4>
                   <p><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in ? element.published_in : "No published data found"}</p>
               </div>
               <div>
-                   <i class="fa-solid fa-right-long"  data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>               
+                   <i style="color:red;" class="fa-solid fa-right-long"  data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>               
               </div>
           </div>
         </div>
@@ -95,7 +95,7 @@ const showAllData=(data)=>{
                   <p><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in ? element.published_in : "No published data found"}</p>
               </div>
               <div>
-              <i class="fa-solid fa-right-long" data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>              
+              <i style="color:red;" class="fa-solid fa-right-long" data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>              
               </div>
           </div>
         </div>
@@ -130,7 +130,7 @@ const displayDetails=(data)=>{
     const container=document.getElementById('modal-body');
 
     container.innerHTML=`
-    <div class="mt-2 d-flex gap-5  ">
+    <div class="mt-2 d-flex gap-3  ">
     <div class="card"  style="max-width: 30rem;">
         <div class="card-body">
             <div>
