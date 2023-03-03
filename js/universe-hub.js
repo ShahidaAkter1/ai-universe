@@ -13,8 +13,7 @@ const loadData=async()=>{
 //display Universe Data
 const displayUniverseData=(data)=>{
     console.log(data);  
-    // storeData=data;
-    //  const {data,...rest}=data;
+    
     //see only 6 data in page first
     data=data.slice(0,6);
 
@@ -132,8 +131,8 @@ const displayDetails=(data)=>{
     console.log(data);
     const container=document.getElementById('modal-body');
     container.innerHTML=`
-    <div class="mt-2 d-flex gap-4  ">
-    <div class="card  "  >
+    <div class="mt-2 d-flex gap-5  ">
+    <div class="card" style="width: 30rem;"  >
         <div class="card-body">
             <div>
                 <div class="shadow-sm p-2 text-center">
@@ -174,7 +173,7 @@ const displayDetails=(data)=>{
     <div class="card " style="width: 30rem;">
         <div>
  
-        <span class="badge text-bg-danger w-50 p-2  position-absolute m-3">${data.accuracy.score}% accuracy </span>
+        <span class="badge text-bg-danger w-auto p-2  position-absolute m-3">${data.accuracy.score}% accuracy </span>
       
 
         <img src="${data.image_link[0]}" class="card-img-top" alt="...">
@@ -223,20 +222,6 @@ const integrations=(data)=>{
 
 loadData()
 
-
-
-
-// const accuracy=(data)=>{
-//     console.log(data);
-//     const  accuracy=data.accuracy.score;
-//     const spanBadge='';
-//     if(accuracy!==null){
-//         console.log('inner if');
-//         spanBadge.innerHTML=` <span class="badge text-bg-danger w-50 p-2 ">${data.accuracy.score}% accuracy </span> `;
-//     }
-//     console.log(spanBadge);
-//     return spanBadge;
-// }
  
  
  
