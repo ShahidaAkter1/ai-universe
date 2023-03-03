@@ -42,7 +42,7 @@ const displayHubs = hubs =>{
             <div>
                 <h4>${name}</h4>
                
-                <span>${published_in}</span>
+                <p><i class="fa-regular fa-calendar-days me-3"></i>${published_in}</p>
             </div>
             <div>
                 <i class="fa-solid fa-right-long" data-bs-toggle="modal" data-bs-target="#exampleModal" ></i> 
@@ -58,5 +58,3 @@ const displayHubs = hubs =>{
 
 loadData();
 
-// <i class="fa-regular fa-calendar-days">
-/* <p><i class="fa-regular fa-calendar-days"></p> */
