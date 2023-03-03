@@ -1,115 +1,75 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Al Universe Hub</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 
-    <script src="https://kit.fontawesome.com/5312b686be.js" crossorigin="anonymous"></script> 
-</head>
-<body>
-   
-    
-   <header>
-    <nav class="text-center">
-        <h1 class=" mt-5">AI Universe Hub</h1>
-        <button type="button" class="btn btn-danger my-5">Sort By Date</button>
-    </nav>
-   </header>
+    <script src="https://kit.fontawesome.com/5312b686be.js" crossorigin="anonymous"></script>
+  
+    <style>
+      .card1{
+        height: 200px;
+      }
+      .modal{
+        --bs-modal-width: 60%;
+      }
+    </style>
+  
+  </head>
+  <body onload=" loading(true)" >
+   <nav class="text-center">
+    <h1 class=" mt-5">AI Universe Hub</h1>
+    <button type="button" class="btn btn-danger mt-3">Sort By Date</button>
+   </nav>
 
-   <main class="container">
-        <section>
-            <div id="ai-container" class="row row-cols-1 row-cols-md-3 g-4 ">
-             
-              </div>
-        </section>
-        
-        <!-- see more button -->
-        <div id="show-all" class="container text-center my-3  d-none">
-            <button type="button" class="btn btn-danger">See More</button>
+   <main>
+
+    <!-- main card -->
+    <section  class="container my-3">
+        <div id="container" class="row row-cols-1 row-cols-md-3 g-4">  
+      
         </div>
+    </section>
 
-        <section> 
-         <!-- Modal -->
-         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    
-            <div class="modal-dialog" style="max-width: 80% !important;">
-              <button style="background-color:red;" type="button" class="btn-close   position-relative" data-bs-dismiss="modal" aria-label="Close"></button>
-              <div class="modal-content">
-                
-                <div  class="modal-body d-flex">
-                  
-                    <div class="d-flex gap-5">
-            
-                        <div class="card " style="width: 30rem;">
-                           
-                            <div class="card-body">
-                                <div>
-                                    <div class="shadow-sm p-2 text-center">
-                                      <h5>ChatGPT is an AI-powered </h5>  
-                                      <h5>chatbot platform that uses </h5>  
-                                      <h5>OpenAI's GPT technology to </h5>  
-                                      <h5>simulate human conversation. </h5>  
-                                    </div>
-                                    <div class="d-flex justify-content-between m-3 gap-3 shadow-sm">
-                                        <div style="color: green;" class="shadow-sm p-2 text-center">
-                                           <h5>$10/month Basic</h5>
-                                        </div>
-                                        <div style="color: orange;" class="shadow-sm p-2 text-center">
-                                            <h5>$50/month Pro</h5>
-                                        </div>
-                                        <div style="color: red;" class="shadow-sm p-2 text-center">
-                                            <h5>Contact us Enterprise</h5>
-                                        </div>
-                                    </div>
-                                    <div  class="d-flex justify-content-between shadow-sm m-4 p-3">
-                                        <div>
-                                            <h4>Features</h4>
-                                            <ol>
-                                                <li>Customizable responses</li>
-                                                <li>Multilingual support</li>
-                                                <li>Seamless integration</li>
-                                            </ol>
-                                        </div>
-                                        <div>
-                                            <h4>Integrations</h4>
-                                            <ol>
-                                                <li>FB Messenger</li>
-                                                <li>Slack</li>
-                                                <li>Telegram</li>
-                                            </ol>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                    
-                    
-                        <div class="card mt-3" style="width: 30rem;">
-                            <img src="image/chatgpt.jpg" class="card-img-top" alt="...">
-                            <button type="button" class="btn btn-danger position-absolute m-2"> Accuracy </button>
-                            <div class="card-body p-2 text-center p-3">
-                                <h3 class="p-3">Hi, how are you doing today?</h3> 
-                                <p>I'm doing well, thank you for asking.<br> How can assist you today?</p>
-                            </div>
-                          </div>
-                   
-                </div>  
-                
-                </div>
-                
-              </div>
-            </div>
-          </div>
-          </section>
+    <!-- spinner -->
+    <section id="spinner" class="d-none">
+      <div class="text-center">
+        <div class="spinner-border text-primary " role="status">
+          <span class="visually-hidden  " >Loading...</span>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- show All -->
+    <section id="showAll-btn" class="container text-center my-3">
+        <button type="button" class="btn btn-danger" id="showAll">See More</button>
+    </section>
+
+
+   <section>
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog ">
+      <button  type="button" class="btn-close border border-white p-2 rounded-circle bg-danger position-relative" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-content">
+
+        <div id="modal-body" class="modal-body ">
+   
+        </div>
+        
+      </div>
+    </div>
+  </div>
+   </section>
    </main>
 
-
- <!-- script file -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
- <script src="js/universe-hub.js"></script>
-</body>
+    <!-- script file -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <script src="js/universe-hub.js"></script>
+  </body>
 </html>
