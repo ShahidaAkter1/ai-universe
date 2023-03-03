@@ -25,7 +25,7 @@ const displayUniverseData=(data)=>{
         container.innerHTML+=`
         <div class="col">
         <div class="card">
-          <img src="${element.image ? element.image :"No image found!!"}" class="card-img-top img-fluid card1" alt="...">
+          <img src="${element.image ? element.image :"No image found!!"}" class="card-img-top img-fluid card-size" alt="...">
           <div class="card-body">
             <h5 class="card-title">Features</h5>
               <ol id="ol">
