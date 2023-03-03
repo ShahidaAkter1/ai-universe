@@ -1,3 +1,4 @@
+//global scope array for storing all data
 let storeData=[];
 
 //fetch data
@@ -13,34 +14,32 @@ const loadData=async()=>{
 //display Universe Data
 const displayUniverseData=(data)=>{
     console.log(data);  
-    
+    // storeData=data;
+    //  const {data,...rest}=data;
     //see only 6 data in page first
     data=data.slice(0,6);
 
     const container=document.getElementById('container');
-    data.forEach(element => {
-        
+    data.forEach(element => { 
+        // console.log(element.features);
         container.innerHTML+=`
-        
         <div class="col">
         <div class="card">
-          <img src="${element.image}" class="card-img-top img-fluid card1" alt="...">
+          <img src="${element.image ? element.image :"No image found!!"}" class="card-img-top img-fluid card1" alt="...">
           <div class="card-body">
             <h5 class="card-title">Features</h5>
-              <ol>
-                 <li>${element.features[0]}</li>
-                 <li> ${element.features[1]}</li>
-                 <li>${element.features[2]}</li> 
+              <ol id="ol">
+              ${featureUniverse(element.features ? element.features : "No data found!!")}
               </ol>
           </div>
           <hr>
           <div class="d-flex mx-3 justify-content-between">
               <div>
-                  <h4>${element.name}  </h4>
-                  <p><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in}</p>
+                  <h4>${element.name ? element.name : "no data found!!" }  </h4>
+                  <p><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in ? element.published_in : "No published data found"}</p>
               </div>
               <div>
-                   <i class="fa-solid fa-right-long  "  data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>               
+                   <i class="fa-solid fa-right-long"  data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>               
               </div>
           </div>
         </div>
@@ -54,6 +53,18 @@ const displayUniverseData=(data)=>{
 
 }
 
+
+const featureUniverse=(data)=>{
+    // console.log("feature uni :: ",data);
+    let li='';
+    for(let i=0;i<data.length;i++){
+        // console.log(data[i]);
+        li+=`<li>${data[i]}</li>`; 
+    }
+    return li;
+}
+
+ 
 document.getElementById('showAll').addEventListener('click',function(){
     // console.log(storeData);
     loading(true);
@@ -70,20 +81,18 @@ const showAllData=(data)=>{
         container.innerHTML+=`      
         <div class="col">
         <div class="card">
-          <img src="${element.image}" class="card-img-top img-fluid card1" alt="...">
+          <img src="${element.image ? element.image : "No image found!!"}" class="card-img-top img-fluid card1" alt="...">
           <div class="card-body">
             <h5 class="card-title">Features</h5>
               <ol>
-                 <li>${element.features[0]}</li>
-                 <li> ${element.features[1]}</li>
-                 <li>${element.features[2]}</li> 
+              ${featureUniverse(element.features ? element.features : "No data found!!")}
               </ol>
           </div>
           <hr>
           <div class="d-flex mx-3 justify-content-between">
               <div>
-                  <h4>${element.name}  </h4>
-                  <p><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in}</p>
+                  <h4>${element.name ? element.name : "no data found!!" }  </h4>
+                  <p><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in ? element.published_in : "No published data found"}</p>
               </div>
               <div>
               <i class="fa-solid fa-right-long" data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>              
@@ -103,19 +112,6 @@ const showAllData=(data)=>{
 }
 
 
-//loader
-const loading= (isLoading)=>{
-    const loaderSection=document.getElementById('spinner');
-    if(isLoading){
-        loaderSection.classList.remove('d-none');
-    }
-    else{
-        loaderSection.classList.add('d-none');
-    }
-}
-
-
-
 // fetch show details id
 const universeDetailsDataFetch=async(id)=>{
     const url=`https://openapi.programming-hero.com/api/ai/tool/${id}`;
@@ -126,17 +122,20 @@ const universeDetailsDataFetch=async(id)=>{
     displayDetails(data.data);
 }
 
+ 
+
 //show details
 const displayDetails=(data)=>{
     console.log(data);
     const container=document.getElementById('modal-body');
+
     container.innerHTML=`
     <div class="mt-2 d-flex gap-5  ">
-    <div class="card" style="width: 30rem;"  >
+    <div class="card"  style="max-width: 30rem;">
         <div class="card-body">
             <div>
                 <div class="shadow-sm p-2 text-center">
-                    <h5>${data.description} </h5>  
+                    <h5>${data.description ? data.description : "No data found" } </h5>  
                 </div>
                 <div class="d-flex justify-content-between m-3 gap-3 shadow-sm">
                     <div style="color: green;" class="shadow-sm p-2 text-center">
@@ -154,14 +153,14 @@ const displayDetails=(data)=>{
                         <h4>Features</h4>
                        
                         <ol>
-                        ${feature(data.features ? data.features :"Not found data!!")}
+                        ${feature(data.features ? data.features :"No data found!!")}
  
                         </ol>
                     </div>
                     <div>
                         <h4>Integrations</h4>
                         <ol>
-                        ${integrations(data.integrations ? data.integrations : "Data not found!!")}
+                        ${integrations(data.integrations ? data.integrations : "No data found!!!!")}
                         </ol>
                     </div>
                 </div>
@@ -169,19 +168,20 @@ const displayDetails=(data)=>{
         </div>
         </div>
 
-
     <div class="card " style="width: 30rem;">
         <div>
  
-        <span class="badge text-bg-danger w-auto p-2  position-absolute m-3">${data.accuracy.score}% accuracy </span>
-      
+    <span class="badge text-bg-danger w-auto p-2  position-absolute m-3">${data.accuracy.score ? data.accuracy.score :"No data found and no "} % accuracy </span>
 
-        <img src="${data.image_link[0]}" class="card-img-top" alt="...">
+
+ 
+
+        <img src="${data.image_link[0] ? data.image_link[0] : "No image found!!" }" class="card-img-top" alt="...">
         </div>
         <div class="card-body p-2 text-center p-3">
-            <h3 class="p-3">${data.input_output_examples? data.input_output_examples[0].input : "Data not found!!"}</h3> 
+            <h3 class="p-3">${data.input_output_examples[0]? data.input_output_examples[0].input : "No data found!!"}</h3> 
 
-            <p> ${data.input_output_examples ? data.input_output_examples[0].output :  "Data not found!!" }</p>
+            <p> ${data.input_output_examples[0] ? data.input_output_examples[0].output :  "No data found!!" }</p>
         </div>
         </div>
 
@@ -198,10 +198,11 @@ const feature=(data)=>{
     let i=0;
      for(const list in data){
          i++;   
-        li+=` <li>${data[i].feature_name}</li>`;       
+        li+=`<li>${data[i].feature_name}</li>`;       
      }
     return li;
 }
+
 //show all integrations
 const integrations=(data)=>{
     console.log(data);
@@ -219,8 +220,20 @@ const integrations=(data)=>{
  
 }
 
+//loader
+const loading= (isLoading)=>{
+    const loaderSection=document.getElementById('spinner');
+    if(isLoading){
+        loaderSection.classList.remove('d-none');
+    }
+    else{
+        loaderSection.classList.add('d-none');
+    }
+}
 
-loadData()
+
+loadData();
+
 
  
  
@@ -228,9 +241,10 @@ loadData()
  
  
  
+      
+  
 
  
-
 
 
 
