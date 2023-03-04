@@ -114,56 +114,60 @@ const displayDetails=(data)=>{
     // console.log(data.accuracy.score);
     const container=document.getElementById('modal-body');
     container.innerHTML=`
-    <div class="mt-2 d-flex gap-5  ">
-    <div class="card"  style="max-width: 30rem;">
-        <div class="card-body">
-            <div>
-                <div class="shadow-sm p-2 text-center">
-                    <h5>${data.description ? data.description : "No data found" } </h5>  
+    <div class="row">
+                <div class="col-sm-6 mb-3 mb-sm-0">
+                    <div class="card">
+                        <div>
+                            <div class="shadow-sm p-2 text-center">
+                              <h5>${data.description ? data.description : "No data found" } </h5>  
+                                
+                            </div>
+                            <div class="d-flex justify-content-between m-1 gap-1 shadow-sm">
+                                <div style="color: green;" class="shadow-sm p-2 text-center">
+                                   <h5>${data.pricing ? data.pricing[0].price : "Free of Cost"}  ${data.pricing ? data.pricing[0].plan : "Free of Cost" }</h5>
+                                </div>
+                                <div style="color: orange;" class="shadow-sm p-2 text-center">
+                                    <h5>${data.pricing ? data.pricing[1].price : "Free of Cost"}  ${data.pricing ? data.pricing[1].plan : "Free of Cost" }</h5>
+                                </div>
+                                <div style="color: red;" class="shadow-sm  text-center">
+                                    <h5>${data.pricing ? data.pricing[2].price : "Free of Cost"}  ${data.pricing ? data.pricing[2].plan : "Free of Cost" }</h5>
+                                </div>
+                            </div>
+                            <div  class="d-flex justify-content-between shadow-sm m-4 p-3">
+                                <div>
+                                    <h4>Features</h4>
+                                    <ol>
+                                        ${feature(data.features ? data.features :"No data found!!")}
+                                    </ol>
+                                </div>
+                                <div>
+                                    <h4>Integrations</h4>
+                                    <ol>
+                                        ${integrations(data.integrations ? data.integrations : "No data found!!!!")}
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
                 </div>
-                <div class="d-flex justify-content-between m-3 gap-3 shadow-sm">
-                    <div style="color: green;" class="shadow-sm p-2 text-center">
-                        <h5> ${data.pricing ? data.pricing[0].price : "Free of Cost"}  ${data.pricing ? data.pricing[0].plan : "Free of Cost" }</h5>
-                    </div>
-                    <div style="color: orange;" class="shadow-sm p-2 text-center">
-                    <h5> ${data.pricing ? data.pricing[1].price : "Free of Cost"}  ${data.pricing ? data.pricing[1].plan : "Free of Cost" }</h5>
-                    </div>
-                    <div style="color: red;" class="shadow-sm p-2 text-center">
-                    <h5> ${data.pricing ? data.pricing[2].price : "Free of Cost"}  ${data.pricing ? data.pricing[2].plan : "Free of Cost" }</h5>
-                    </div>
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body" >
+                        ${accuracyShow(data)}
+                          <img id="img" src="${data.image_link[0] ? data.image_link[0] : "No image found!!" }" class="card-img-top" alt="...">
+                          
+                        
+        
+                         <div class="card-body p-2 text-center p-3">
+
+                             <h3 class="p-3">${data.input_output_examples[0]? data.input_output_examples[0].input : "No data found!!"}</h3> 
+
+                             <p>${data.input_output_examples[0] ? data.input_output_examples[0].output :  "No data found!!" }</p>
+                         </div>
+                       </div>
+                  </div>
                 </div>
-                <div  class="d-flex justify-content-between shadow-sm m-4 p-3">
-                    <div>
-                        <h4>Features</h4>
-                       
-                        <ol>
-                        ${feature(data.features ? data.features :"No data found!!")}
-                        </ol>
-                    </div>
-                    <div>
-                        <h4>Integrations</h4>
-                        <ol>
-                        ${integrations(data.integrations ? data.integrations : "No data found!!!!")}
-                        </ol>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-
-    <div class="card " style="width: 30rem;">
-        <div>
-        ${accuracyShow(data)}
-        <img src="${data.image_link[0] ? data.image_link[0] : "No image found!!" }" class="card-img-top" alt="...">
-        </div>
-        <div class="card-body p-2 text-center p-3">
-            <h3 class="p-3">${data.input_output_examples[0]? data.input_output_examples[0].input : "No data found!!"}</h3> 
-
-            <p> ${data.input_output_examples[0] ? data.input_output_examples[0].output :  "No data found!!" }</p>
-        </div>
-        </div>
-
-    </div>  
+              </div>
     `;
 }
 
