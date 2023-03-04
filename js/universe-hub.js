@@ -13,33 +13,33 @@ const loadData=async()=>{
 
 //display Universe Data
 const displayUniverseData=(data)=>{
-    console.log(data);  
+    console.log("from universe :: ",data);  
     // storeData=data;
     //  const {data,...rest}=data;
     //see only 6 data in page first
     data=data.slice(0,6);
-
     const container=document.getElementById('container');
+    container.innerText='';
     data.forEach(element => { 
         // console.log(element.features);
         container.innerHTML+=`
         <div class="col">
         <div class="card">
-          <img src="${element.image ? element.image :"No image found!!"}" class="card-img-top img-fluid card-size" alt="...">
+          <img src="${element.image ? element.image :"No image found!!"}" class="card-img-top img-fluid card1" alt="...">
           <div class="card-body">
             <h5 class="card-title">Features</h5>
               <ol id="ol">
               ${featureUniverse(element.features ? element.features : "No data found!!")}
               </ol>
           </div>
-          <hr class="w-75 mx-auto">
+          <hr>
           <div class="d-flex mx-3 justify-content-between">
               <div>
                   <h4>${element.name ? element.name : "no data found!!" }  </h4>
-                  <p><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in ? element.published_in : "No published data found"}</p>
+                  <p id="date"><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in ? element.published_in : "No published data found"}</p>
               </div>
-              <div>
-                   <i style="color:red;" class="fa-solid fa-right-long"  data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>               
+              <div class="mt-4 text-primary">
+                   <i class="fa-solid fa-right-long"  data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>               
               </div>
           </div>
         </div>
@@ -53,7 +53,6 @@ const displayUniverseData=(data)=>{
 
 }
 
-
 const featureUniverse=(data)=>{
     // console.log("feature uni :: ",data);
     let li='';
@@ -64,13 +63,6 @@ const featureUniverse=(data)=>{
     return li;
 }
 
- 
-document.getElementById('showAll').addEventListener('click',function(){
-    // console.log(storeData);
-    loading(true);
-    showAllData(storeData);
-
-})
 
 //showAll data
 const showAllData=(data)=>{
@@ -94,23 +86,18 @@ const showAllData=(data)=>{
                   <h4>${element.name ? element.name : "no data found!!" }  </h4>
                   <p><i class="fa-regular fa-calendar-days me-3"></i>${element.published_in ? element.published_in : "No published data found"}</p>
               </div>
-              <div>
-              <i style="color:red;" class="fa-solid fa-right-long" data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>              
+              <div class="mt-4 text-primary">
+              <i class="fa-solid fa-right-long" data-bs-toggle="modal" data-bs-target="#exampleModal"  onclick="universeDetailsDataFetch('${element.id}')"></i>              
               </div>
           </div>
         </div>
-      </div>
-    
+      </div>   
         `;
     });
-    
     const showAllButton=document.getElementById('showAll-btn');
     showAllButton.classList.add('d-none');
-  
     loading(false);
-
 }
-
 
 // fetch show details id
 const universeDetailsDataFetch=async(id)=>{
@@ -122,15 +109,12 @@ const universeDetailsDataFetch=async(id)=>{
     displayDetails(data.data);
 }
 
- 
-
 //show details
 const displayDetails=(data)=>{
-    console.log(data);
+    // console.log(data.accuracy.score);
     const container=document.getElementById('modal-body');
-
     container.innerHTML=`
-    <div class="mt-2 d-flex gap-3  ">
+    <div class="mt-2 d-flex gap-5  ">
     <div class="card"  style="max-width: 30rem;">
         <div class="card-body">
             <div>
@@ -154,7 +138,6 @@ const displayDetails=(data)=>{
                        
                         <ol>
                         ${feature(data.features ? data.features :"No data found!!")}
- 
                         </ol>
                     </div>
                     <div>
@@ -170,12 +153,7 @@ const displayDetails=(data)=>{
 
     <div class="card " style="width: 30rem;">
         <div>
- 
-    <span class="badge text-bg-danger w-auto p-2  position-absolute m-3">${data.accuracy.score ? data.accuracy.score :"No data found and no "} % accuracy </span>
-
-
- 
-
+        ${accuracyShow(data)}
         <img src="${data.image_link[0] ? data.image_link[0] : "No image found!!" }" class="card-img-top" alt="...">
         </div>
         <div class="card-body p-2 text-center p-3">
@@ -187,13 +165,36 @@ const displayDetails=(data)=>{
 
     </div>  
     `;
-
-
 }
+
+//accuracy show or not...badge
+const accuracyShow=(data)=>{
+    // console.log(data);
+    const convertPercentage=data.accuracy.score*100;
+    // console.log(convertPercentage);
+    let span='';
+    if(data.accuracy.score !==null){
+        span=`
+        <p  id="accuracyContainer" class="badge text-bg-danger w-auto p-2  position-absolute m-3">
+        <span id="spanTagAccuracy"> ${convertPercentage}</span> % accuracy
+      </p>
+        `;
+        return span;
+    }
+    else{
+        span=`
+        <p  id="accuracyContainer" class="badge d-none text-bg-danger w-auto p-2  position-absolute m-3">
+        <span id="spanTagAccuracy"> </span> % accuracy
+      </p>
+        `;
+        return span;
+    }
+}
+
 
 //show all feature
 const feature=(data)=>{
-    console.log(data);
+    // console.log(data);
     let li='';
     let i=0;
      for(const list in data){
@@ -205,7 +206,7 @@ const feature=(data)=>{
 
 //show all integrations
 const integrations=(data)=>{
-    console.log(data);
+    // console.log(data);
     const len=data.length;
     if(len!==0){
         let li='';
@@ -232,6 +233,41 @@ const loading= (isLoading)=>{
 }
 
 
+//sort the date
+const sorting=(a,b)=>{
+    const dateA=new Date(a.published_in);
+    const dateB=new Date(b.published_in);
+    if(dateA>dateB){
+        return 1;
+    }
+    else if(dateA<dateB){ 
+        return -1;
+    }
+    else{
+        return 0;
+    }
+};
+
+
+//show all button event handler 
+document.getElementById('showAll').addEventListener('click',function(){
+    // console.log(storeData);
+    loading(true);
+    showAllData(storeData);
+})
+
+//sort button event handler
+document.getElementById('sort').addEventListener('click',function(){
+    // console.log(storeData);
+    const sortByDate=storeData.sort(sorting);
+    // console.log(sortByDate);
+    displayUniverseData(sortByDate);
+    // console.log(storeData.sort(sorting));
+ 
+})
+
+
+
 loadData();
 
 
@@ -243,20 +279,3 @@ loadData();
  
       
   
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
