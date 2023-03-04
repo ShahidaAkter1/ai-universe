@@ -122,14 +122,14 @@ const displayDetails=(data)=>{
                               <h5>${data.description ? data.description : "No data found" } </h5>  
                                 
                             </div>
-                            <div class="d-flex justify-content-between m-1 gap-1 shadow-sm">
+                            <div class="d-flex justify-content-between m-1 gap-1 shadow-sm middle-card">
                                 <div style="color: green;" class="shadow-sm p-2 text-center">
                                    <h5>${data.pricing ? data.pricing[0].price : "Free of Cost"}  ${data.pricing ? data.pricing[0].plan : "Free of Cost" }</h5>
                                 </div>
-                                <div style="color: orange;" class="shadow-sm p-2 text-center">
+                                <div style="color: orange;" class="shadow-sm p-2 text-center ">
                                     <h5>${data.pricing ? data.pricing[1].price : "Free of Cost"}  ${data.pricing ? data.pricing[1].plan : "Free of Cost" }</h5>
                                 </div>
-                                <div style="color: red;" class="shadow-sm  text-center">
+                                <div style="color: red;" class="shadow-sm  text-center  p-2">
                                     <h5>${data.pricing ? data.pricing[2].price : "Free of Cost"}  ${data.pricing ? data.pricing[2].plan : "Free of Cost" }</h5>
                                 </div>
                             </div>
